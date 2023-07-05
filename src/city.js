@@ -11,10 +11,13 @@ function City() {
                 const response = await fetch(
                     `https://api.openweathermap.org/data/2.5/forecast?q=${params.name}&cnt=5&units=metric&appid=04c28042c354e56d87c11ae4123c23c0`
                 );
+                if (!response.ok) {
+                    throw new Error('Ошибка при получении прогноза погоды: ' + response.status);
+                }
                 const data = await response.json();
                 setForecast(data.list);
             } catch (error) {
-                console.log('Ошибка при получении прогноза погоды:', error);
+                console.log(error);
             }
         };
 
